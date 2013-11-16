@@ -1,0 +1,46 @@
+user :{
+    "_id": ObjectId(),
+    "name": String,
+    "lastName": String,
+    "pwd": String,
+    "email": String,
+    "company":
+    "apps":[{
+        "name":String,
+        "collections":[String],
+        "appKey":String,
+        "OpenKey":String
+    }
+    ]
+}
+
+app:{
+    "_id":ObjectId(),
+    "name": String,
+    "appKey": String,
+    "schemas":[{
+        "_id": ObjectId(),
+        "name": String,
+        "fields":[{
+                    "fieldName":"dateCreate",
+                    "fieldType":"?"
+                },
+                {
+                    "fieldName":"dateUpdate",
+                    "fieldType":"?"
+                },
+                {
+                    "fieldName":"collection_id",
+                    "fieldType": String,
+                },
+                {
+                    "fieldName":"someDate",
+                    "fieldType":String,
+                    "primary_key": true
+                }
+            }
+            ]
+        }
+    ]
+
+}

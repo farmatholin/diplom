@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/APIServer" libraries="{Node.js Globals, Node.js v0.10.18 Core Modules}" />
+    <file url="file://$PROJECT_DIR$/AccessServer" libraries="{Node.js Globals, Node.js v0.10.18 Core Modules}" />
+    <excludedPredefinedLibrary name="HTML" />
+    <excludedPredefinedLibrary name="HTML5 / EcmaScript 5" />
+  </component>
+</project>
+
