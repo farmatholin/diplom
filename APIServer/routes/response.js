@@ -38,6 +38,10 @@ exports.get = function (req, res, next) {
 exports.getId = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
+    var apiKey = req.getHeader("Api-Key");
+    var apiApp = req.getHeader("Api-App");
+    var apiUser = req.getHeader("Api-User");
+
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
     var db = mongol.db(dbName);
@@ -53,6 +57,10 @@ exports.getId = function (req, res, next) {
 
 exports.post = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
+
+    var apiKey = req.getHeader("Api-Key");
+    var apiApp = req.getHeader("Api-App");
+    var apiUser = req.getHeader("Api-User");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
@@ -75,6 +83,10 @@ exports.put = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
 
+    var apiKey = req.getHeader("Api-Key");
+    var apiApp = req.getHeader("Api-App");
+    var apiUser = req.getHeader("Api-User");
+
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
     var db = mongol.db(dbName);
@@ -96,6 +108,10 @@ exports.put = function (req, res, next) {
 exports.delete = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
+
+    var apiKey = req.getHeader("Api-Key");
+    var apiApp = req.getHeader("Api-App");
+    var apiUser = req.getHeader("Api-User");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)

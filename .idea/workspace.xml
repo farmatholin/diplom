@@ -46,19 +46,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIServer/package.json">
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIServer/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="19" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
+            <state line="14" column="3" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIServer/app.js">
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AccessServer/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="3" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
+            <state line="1" column="21" selection-start="23" selection-end="23" vertical-scroll-proportion="-0.75">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AccessServer/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="13" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -85,7 +94,7 @@
       <file leaf-file-name="response.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIServer/routes/response.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="0" selection-start="3184" selection-end="3184" vertical-scroll-proportion="3.3113208">
+            <state line="119" column="40" selection-start="3711" selection-end="3711" vertical-scroll-proportion="3.7889152">
               <folding />
             </state>
           </provider>
@@ -225,6 +234,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="AccessServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Diplom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Diplom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AccessServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -414,11 +441,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/APIServer/node_modules/mongodb/lib/mongodb/db.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="34" selection-start="267" selection-end="267" vertical-scroll-proportion="-80.9838" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIServer/node_modules/mongodb/lib/mongodb/mongo_client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0" />
@@ -461,28 +483,9 @@
         <state line="11" column="51" selection-start="374" selection-end="374" vertical-scroll-proportion="0.5313059" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AccessServer/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="21" selection-start="23" selection-end="23" vertical-scroll-proportion="0.05162524" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AccessServer/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIServer/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="19" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIServer/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="3" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIServer/routes/db.js">
@@ -499,9 +502,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/APIServer/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="31" selection-start="263" selection-end="263" vertical-scroll-proportion="0.39901477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIServer/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="3" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AccessServer/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="21" selection-start="23" selection-end="23" vertical-scroll-proportion="-0.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AccessServer/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="13" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/APIServer/routes/response.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="0" selection-start="3184" selection-end="3184" vertical-scroll-proportion="3.3113208">
+        <state line="119" column="40" selection-start="3711" selection-end="3711" vertical-scroll-proportion="3.7889152">
           <folding />
         </state>
       </provider>
