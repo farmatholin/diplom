@@ -7,9 +7,9 @@ var exec = require("child_process").exec;
 
 exports.get = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
-    var apiKey = req.getHeader("Api-Key");
-    var apiApp = req.getHeader("Api-App");
-    var apiUser = req.getHeader("Api-User");
+    var apiKey = req.header("api-key");
+    var apiApp = req.header("api-app");
+    var apiUser = req.header("api-user");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
@@ -38,9 +38,9 @@ exports.get = function (req, res, next) {
 exports.getId = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
-    var apiKey = req.getHeader("Api-Key");
-    var apiApp = req.getHeader("Api-App");
-    var apiUser = req.getHeader("Api-User");
+    var apiKey = req.header("api-key");
+    var apiApp = req.header("api-app");
+    var apiUser = req.header("api-user");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
@@ -58,9 +58,9 @@ exports.getId = function (req, res, next) {
 exports.post = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
-    var apiKey = req.getHeader("Api-Key");
-    var apiApp = req.getHeader("Api-App");
-    var apiUser = req.getHeader("Api-User");
+    var apiKey = req.header("api-key");
+    var apiApp = req.header("api-app");
+    var apiUser = req.header("api-user");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
@@ -82,10 +82,9 @@ exports.post = function (req, res, next) {
 exports.put = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
-
-    var apiKey = req.getHeader("Api-Key");
-    var apiApp = req.getHeader("Api-App");
-    var apiUser = req.getHeader("Api-User");
+    var apiKey = req.header("api-key");
+    var apiApp = req.header("api-app");
+    var apiUser = req.header("api-user");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
@@ -108,10 +107,9 @@ exports.put = function (req, res, next) {
 exports.delete = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
-
-    var apiKey = req.getHeader("Api-Key");
-    var apiApp = req.getHeader("Api-App");
-    var apiUser = req.getHeader("Api-User");
+    var apiKey = req.header("api-key");
+    var apiApp = req.header("api-app");
+    var apiUser = req.header("api-user");
 
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)

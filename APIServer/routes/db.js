@@ -1,8 +1,5 @@
 var mongol = require('../lib/mongolian');
-var qFunc = require('../lib/queryFunctions');
-var ObjectId = require('mongolian').ObjectId
 var config = require('../config');
-var Url = require('url');
 var exec = require("child_process").exec;
 
 exports.post = function (req, res, next){
