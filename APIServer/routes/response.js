@@ -7,7 +7,15 @@ var exec = require("child_process").exec;
 
 exports.get = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
-    var db = mongol.db('mongol_test');
+    var apiKey = req.getHeader("Api-Key");
+    var apiApp = req.getHeader("Api-App");
+    var apiUser = req.getHeader("Api-User");
+
+    //Test
+    var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
+    var db = mongol.db(dbName);
+    //Test
+    //var db = mongol.db('mongol_test');
     var collection = db.collection(req.params.className);
     var response = [];
     var url = Url.parse(req.url);
@@ -29,7 +37,13 @@ exports.get = function (req, res, next) {
 
 exports.getId = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
-    var db = mongol.db('mongol_test');
+
+    //Test
+    var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
+    var db = mongol.db(dbName);
+    //Test
+    //var db = mongol.db('mongol_test');
+
     var collection = db.collection(req.params.className);
     collection.findOne({_id:req.params.id}, function (err, doc) {
         res.end(JSON.stringify(doc));
@@ -39,10 +53,14 @@ exports.getId = function (req, res, next) {
 
 exports.post = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
-    var db = mongol.db('mongol_test');
-    ///!!!!
+
+    //Test
+    var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
+    var db = mongol.db(dbName);
+    //Test
+    //var db = mongol.db('mongol_test');
+
     db.auth("user","servapiuser");
-    ///!!!!
     var collection = db.collection(req.params.className);
     console.log(req.body);
     var objToInsert = qFunc.queryInsertCreator(req.body);
@@ -55,8 +73,14 @@ exports.post = function (req, res, next) {
 
 exports.put = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
-    
-    var db = mongol.db('mongol_test');
+
+
+    //Test
+    var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
+    var db = mongol.db(dbName);
+    //Test
+    //var db = mongol.db('mongol_test');
+
     db.auth("user","servapiuser");
     
     var collection = db.collection(req.params.className);
@@ -71,8 +95,14 @@ exports.put = function (req, res, next) {
 
 exports.delete = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
-    
-    var db = mongol.db('mongol_test');
+
+
+    //Test
+    var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
+    var db = mongol.db(dbName);
+    //Test
+    //var db = mongol.db('mongol_test');
+
     db.auth("user","servapiuser");
     
     var collection = db.collection(req.params.className);
