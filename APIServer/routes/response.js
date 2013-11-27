@@ -16,6 +16,8 @@ exports.get = function (req, res, next) {
     var db = mongol.db(dbName);
     //Test
     //var db = mongol.db('mongol_test');
+
+    db.auth("user","servapiuser");
     var collection = db.collection(req.params.className);
     var response = [];
     var url = Url.parse(req.url);
@@ -45,6 +47,7 @@ exports.getId = function (req, res, next) {
     //Test
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
     var db = mongol.db(dbName);
+    db.auth("user","servapiuser");
     //Test
     //var db = mongol.db('mongol_test');
 
