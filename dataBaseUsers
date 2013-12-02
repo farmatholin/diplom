@@ -1,7 +1,6 @@
 user :{
     "_id": ObjectId(),
     "name": String,
-    "lastName": String,
     "pwd": String,
     "email": String,
     "company":
@@ -17,7 +16,7 @@ user :{
 app:{
     "_id":ObjectId(),
     "name": String,
-    "appKey": String,
+    "user": String,
     "schemas":[{
         "_id": ObjectId(),
         "name": String,

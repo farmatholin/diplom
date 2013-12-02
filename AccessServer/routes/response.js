@@ -1,121 +1,60 @@
 var config = require('../config');
 var request = require('request');
-
-exports.get = function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-    var apiKey = req.header('api-key');
-
-    request(
-        { method: 'GET',
-            url: 'http://serv1-farmathapiserver.rhcloud.com/data/'+req.params.className,
-            headers:{
-                "Api-Key": apiKey,
-                "Api-App": "app",
-                "Api-User": "user"
-            }
-        }
-        , function (error, response, body) {
-            if(response.statusCode == 200){
-                res.end(body)
-            }else {
-                res.end(error);
-            }
-        }
-    );
-};
-
-exports.getId = function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-    var apiKey = req.header('api-key');
-
-    request(
-        { method: 'GET',
-            url: 'http://serv1-farmathapiserver.rhcloud.com/data/'+req.params.className+'/'+req.params.id,
-            headers:{
-                "Api-Key": apiKey,
-                "Api-App": "app",
-                "Api-User": "user"
-            }
-        }
-        , function (error, response, body) {
-            if(response.statusCode == 200){
-                res.end(body)
-            }else {
-                res.end(error);
-            }
-        }
-    );
-
-};
-
-exports.post = function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-    var apiKey = req.header("api-key");
-
-    request(
-        { method: 'POST',
-            url: 'http://serv1-farmathapiserver.rhcloud.com/data/'+req.params.className,
-            headers:{
-                "Api-Key": apiKey,
-                "Api-App": "app",
-                "Api-User": "user"
-            },
-            form:req.body
-        }
-        , function (error, response, body) {
-            if(response.statusCode == 200){
-                res.end(body)
-            }else {
-                res.end(error);
-            }
-        }
-    );
-};
+var App = require('../models/app').App;
+var HttpError = require('../error').HttpError;
 
 exports.put = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     var apiKey = req.header('api-key');
 
-    request(
-        { method: 'PUT',
-            url: 'http://serv1-farmathapiserver.rhcloud.com/data/'+req.params.className + '/'+req.params.id,
-            headers:{
-                "Api-Key": apiKey,
-                "Api-App": "app",
-                "Api-User": "user"
+    App.getAppData(apiKey, function (err, app) {
+        if (err) return next(err);
+
+        request(
+            { method: 'PUT',
+                url: app.dataServer + '/data/'+req.params.className + '/'+req.params.id,
+                headers:{
+                    "Api-Key": apiKey,
+                    "Api-App": app.name,
+                    "Api-User": app.user
+                },
+                form:req.body
             },
-            form:req.body
-        }
-        , function (error, response, body) {
-            if(response.statusCode == 200){
-                res.end(body)
-            }else {
-                res.end(error);
+            function (error, response, body) {
+                if (response.statusCode == 200) {
+                    res.end(body)
+                } else {
+                    return next(error);
+                }
             }
-        }
-    );
+        );
+    });
 };
 
 exports.delete = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     var apiKey = req.header('api-key');
 
-    request(
-        { method: 'DELETE',
-            url: 'http://serv1-farmathapiserver.rhcloud.com/data/'+req.params.className+'/'+req.params.id,
-            headers:{
-                "Api-Key": apiKey,
-                "Api-App": "app",
-                "Api-User": "user"
-            }
-        }
-        , function (error, response, body) {
-            if(response.statusCode == 200){
-                res.end(body)
-            }else {
-                res.end(error);
-            }
-        }
-    );
+    App.getAppData(apiKey, function (err, app) {
+        if (err) return next(err);
 
+        request(
+            { method: 'DELETE',
+                url: app.dataServer + '/data/'+req.params.className + '/'+req.params.id,
+                headers:{
+                    "Api-Key": apiKey,
+                    "Api-App": app.name,
+                    "Api-User": app.user
+                },
+                form:req.body
+            },
+            function (error, response, body) {
+                if (response.statusCode == 200) {
+                    res.end(body)
+                } else {
+                    return next(error);
+                }
+            }
+        );
+    });
 };
