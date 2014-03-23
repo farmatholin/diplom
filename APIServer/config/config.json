@@ -4,7 +4,7 @@
     "uri": "mongodb://",
     "username":"admin",
     "password":"WJ5-g17l-vAV",
-    "server":"127.2.252.130",
+    "server":"localhost",
     "port":"27017"
   }
 }

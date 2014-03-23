@@ -1,6 +1,6 @@
 var config = require('../config');
 var request = require('request');
-var App = require('../models/app').App;
+var App = require('../models/App').App;
 var HttpError = require('../error').HttpError;
 
 exports.put = function (req, res, next) {
@@ -12,13 +12,13 @@ exports.put = function (req, res, next) {
 
         request(
             { method: 'PUT',
-                url: app.dataServer + '/data/'+req.params.className + '/'+req.params.id,
-                headers:{
+                url: app.dataServer + '/data/' + req.params.className + '/' + req.params.id,
+                headers: {
                     "Api-Key": apiKey,
                     "Api-App": app.name,
                     "Api-User": app.user
                 },
-                form:req.body
+                form: req.body
             },
             function (error, response, body) {
                 if (response.statusCode == 200) {
@@ -40,13 +40,13 @@ exports.delete = function (req, res, next) {
 
         request(
             { method: 'DELETE',
-                url: app.dataServer + '/data/'+req.params.className + '/'+req.params.id,
-                headers:{
+                url: app.dataServer + '/data/' + req.params.className + '/' + req.params.id,
+                headers: {
                     "Api-Key": apiKey,
                     "Api-App": app.name,
                     "Api-User": app.user
                 },
-                form:req.body
+                form: req.body
             },
             function (error, response, body) {
                 if (response.statusCode == 200) {

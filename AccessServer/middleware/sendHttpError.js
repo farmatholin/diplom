@@ -1,3 +1,5 @@
+//для проверки на http error
+
 module.exports = function (req, res, next) {
     res.sendHttpError = function (error) {
         res.status(error.status);

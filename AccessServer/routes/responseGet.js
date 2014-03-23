@@ -1,6 +1,6 @@
 var config = require('../config');
 var request = require('request');
-var App = require('../models/app').App;
+var App = require('../models/App').App;
 var HttpError = require('../error').HttpError;
 
 exports.get = function (req, res, next) {

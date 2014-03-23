@@ -5,19 +5,28 @@ var config = require('../config');
 var Url = require('url');
 var exec = require("child_process").exec;
 
+/**
+ * @autor Люблю САШКУ Борисову!!!!!!
+ */
+
 exports.get = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
+    // Получение всех параметров из хедера
     var apiKey = req.header("api-key");
     var apiApp = req.header("api-app");
     var apiUser = req.header("api-user");
 
     //Test
+    //Полуение ДБ в которой храниться всё добро
     var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
     var db = mongol.db(dbName);
     //Test
     //var db = mongol.db('mongol_test');
 
+    // Авторизация
     db.auth("user","servapiuser");
+
+    //получение данных
     var collection = db.collection(req.params.className);
     var response = [];
     var url = Url.parse(req.url);
@@ -53,7 +62,7 @@ exports.getId = function (req, res, next) {
 
     var collection = db.collection(req.params.className);
     collection.findOne({_id:req.params.id}, function (err, doc) {
-        res.end(JSON.stringify(doc));
+        res.send(doc);
     });
 
 };

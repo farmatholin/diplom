@@ -1,6 +1,7 @@
 var winston = require('winston');
 
 // can be much more flexible than that O_o
+//TODO: Перепилить
 function getLogger(module) {
 
   var path = module.filename.split('/').slice(-2).join('/');

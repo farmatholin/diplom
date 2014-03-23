@@ -6,15 +6,14 @@ var mongoose = require('../lib/mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
-var appsSchema = new Schema({
-    name:{
-        type: String
-    },
-    collections:[String],
-    appKey:{
-        type:String
-    }
-});
+///TODO: НЕ НУЖНА МОДЕЛЬ!
+
+
+function UserApps(){
+    this.name = '',
+    this.collections= [],
+    this.appKey = ''
+}
 
 var schema = new Schema({
     username: {
@@ -39,7 +38,7 @@ var schema = new Schema({
         unique: true,
         required: true
     },
-    apps:[appsSchema]
+    apps:[UserApps]
 });
 
 schema.methods.encryptPassword = function(password) {

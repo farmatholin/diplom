@@ -8,6 +8,9 @@ var app = express();
 
 app.use(express.favicon());
 
+app.set('env', process.env.NODE_ENV);
+
+//TODO: Добавить Обработку ошибок
 if (app.get('env') == 'development') {
     app.use(express.logger('dev'));
 } else {
@@ -23,9 +26,9 @@ require('./routes')(app);
 
 var server = http.createServer(app);
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8081;
         
 server.listen(port, ipaddress, function(){
-    log.info('Express server listening on port ' + config.get('port'));
+    log.info('Express server listening on port ' + port);
 });

@@ -9,6 +9,8 @@ var app = express();
 
 app.use(express.favicon());
 
+app.set('env', process.env.NODE_ENV);
+
 if (app.get('env') == 'development') {
     app.use(express.logger('dev'));
 } else {
@@ -24,11 +26,14 @@ app.use(app.router);
 
 require('./routes')(app);
 
+// Обработка ошибок
+
 app.use(function(err, req, res, next) {
     if (typeof err == 'number') { // next(404);
         err = new HttpError(err);
     }
     if (err instanceof HttpError) {
+        log.error(err);
         res.sendHttpError(err);
     } else {
         if (app.get('env') == 'development') {
@@ -43,9 +48,11 @@ app.use(function(err, req, res, next) {
 
 var server = http.createServer(app);
 
+
 var ipaddress = 'localhost';
 var port = 8082;
 
+
 server.listen(port, ipaddress, function(){
-    log.info('Express server listening on port ' + config.get('port'));
+    log.info('Express server listening on port ' + port);
 });

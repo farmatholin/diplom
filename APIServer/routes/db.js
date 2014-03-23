@@ -7,7 +7,9 @@ exports.post = function (req, res, next){
     var func  = "mongo -u "+config.get('mongolian:username')+" -p "+config.get('mongolian:password')+" "+config.get('mongolian:server')+"/admin --eval \"db.getSiblingDB('"+req.params.dbName+"').addUser('user', 'servapiuser');\""
     
     exec(func, function(err, resstd, errstd){
-        res.end(resstd);
+        res.send({"msg":'good'});
+        //if(err) res.end(err);
+       //res.end(resstd);
     });
 }
 

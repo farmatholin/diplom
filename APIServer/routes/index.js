@@ -1,5 +1,7 @@
 module.exports = function (app) {
-    
+
+    //TODO: Разделить по файлам
+
     app.get('/data/:className/:id', require('./response').getId);
     app.get('/data/:className', require('./response').get);
 
