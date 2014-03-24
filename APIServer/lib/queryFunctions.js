@@ -7,7 +7,7 @@ var ObjectId = require('mongolian').ObjectId
 
 exports.queryCreator = function(query){
     query = JSON.stringify(query).replace(reg,'"$$$1"');
-    query = query.replace(regInt,'$1');
+    query = query.replace(regInt,':$1');
     return JSON.parse(query);
 };
 

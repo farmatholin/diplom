@@ -12,7 +12,7 @@ exports.get = function (req, res, next) {
 
         request(
             { method: 'GET',
-                url: app.dataServer + '/data/' + req.params.className,
+                url: app.dataServer + req.originalUrl,
                 headers: {
                     "Api-Key": apiKey,
                     "Api-App": app.name,
@@ -39,7 +39,7 @@ exports.getId = function (req, res, next) {
 
         request(
             { method: 'GET',
-                url: app.dataServer + '/data/' + req.params.className + '/' + req.params.id,
+                url: app.dataServer + req.originalUrl,
                 headers: {
                     "Api-Key": apiKey,
                     "Api-App": app.name,
