@@ -1,0 +1,21 @@
+<% layout('../layout/dashboard') -%>
+<% block('title', 'Панель управления'); -%>
+
+<p class="lead">Приложение</p>
+
+<a href="/dashboard/app/add">Добавить приложение</a>
+<% if (apps.length > 0){ %>
+    <% for(var i = 0; i < apps.length; ++i){%>
+    <div>
+        <div>
+            <a href="/dashboard/app/delete/<%=apps[i]._id %>">удалить</a>
+            <a href="/dashboard/app/edit/<%=apps[i]._id %>"><%=apps[i].name %></a>
+            <a href="/dashboard/app/service/custom/<%=apps[i]._id %>">Кастомный объект</a>
+        </div>
+    </div>
+    <% }%>
+<% } else { %>
+    <div>
+        Ничего больше нету
+    </div>
+<% } %>

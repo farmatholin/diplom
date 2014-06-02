@@ -1,0 +1,133 @@
+<% layout('../layout/dashboard') -%>
+<% block('title', 'Добавить Коллекцию'); -%>
+<% stylesheet('/vendor/bower_components/datatables/media/css/jquery.dataTables.css') -%>
+<% script('/vendor/bower_components/datatables/media/js/jquery.dataTables.js') -%>
+
+<form class="form-horizontal cApp-form" name="cApp-form">
+<div class="form-group">
+    <label for="input-classname" class="col-lg-2 control-label">Имя</label>
+    <div class="col-lg-10">
+        <input name="name" type="text" class="form-control" id="input-classname" placeholder="Имя коллекции">
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+        <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Создать</button>
+        <span class="help-block error"></span>
+    </div>
+</div>
+</form>
+<% if(appBody){ %>
+
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <% for(var i=0; i<appBody.fields.length; i++){%>
+            <th><%= appBody.fields[i]['fieldName']%></th>
+        <%}%>
+    </tr>
+    </thead>
+</table>
+<button id="delete" type="submit" class="btn btn-primary">Удалить</button>
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            "language": {
+                "lengthMenu": "Отображать _MENU_ записей на страницу",
+                "zeroRecords": "ничего нету",
+                "info": "Показано _PAGE_ из _PAGES_",
+                "infoEmpty": "Нету данных",
+                "infoFiltered": "(получено _MAX_)",
+                "search": "Поиск"
+            }
+        });
+
+        $('#addRow').on('click', function(){
+            table.row.add([
+            ]).draw();
+        });
+
+        $('#example tbody').on( 'click', 'tr', function () {
+            $(this).toggleClass('selected');
+            var test = table.rows('.selected').data();
+            console.log(test[0][2]);
+
+        } );
+
+        $('#delete').click(function () {
+            var ids = []
+            var data = table.rows('.selected').data();
+            for(var i =0; i < data.length; ++i){
+                ids.push(data[i][2]);
+            };
+            $.ajax({
+                url: '/dashboard/app/service/ajax/custom/<%=id%>/<%=appBody.name%>',
+                method: "DELETE",
+                data:{'data':ids },
+                statusCode: {
+                    200: function (body) {
+                        table.rows('.selected').remove().draw(false);
+                    },
+                    403: function (jqXHR) {
+                        var error = JSON.parse(jqXHR.responseText);
+                        $('.error', form).html(error.message);
+                    }
+                }
+            });
+        });
+
+        $.ajax({
+            url: '/dashboard/app/service/ajax/custom/<%=id%>/<%=appBody.name%>',
+            method: "GET",
+            statusCode: {
+                200: function (body) {
+                    var data = JSON.parse(body);
+                    data.forEach(function(item){
+                        table.row.add([
+                            <% for(var i=0; i<appBody.fields.length; i++){%>
+                            item['<%= appBody.fields[i]['fieldName']%>'],
+                            <%}%>
+                        ]).draw();
+                    });
+                },
+                403: function (jqXHR) {
+                    var error = JSON.parse(jqXHR.responseText);
+                    $('.error', form).html(error.message);
+                }
+            }
+        });
+    });
+</script>
+<% } else { %>
+<div>
+    <h2>Ещё ничего нету, создайте коллекцию</h2>
+</div>
+<% } %>
+<script>
+    $(document.forms['cApp-form']).on('submit', function () {
+        var form = $(this);
+
+        $('.error', form).html('');
+        $(":submit", form).button("loading");
+
+        $.ajax({
+            url: '/dashboard/app/service/custom/<%=id%>',
+            method: "POST",
+            data: form.serialize(),
+            complete: function () {
+                $(":submit", form).button("reset");
+            },
+            statusCode: {
+                200: function (body) {
+                    form.html("Добавлено").addClass('alert-success');
+                    window.location = '/dashboard/app/service/custom/<%=id%>';
+                },
+                403: function (jqXHR) {
+                    var error = JSON.parse(jqXHR.responseText);
+                    $('.error', form).html(error.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>

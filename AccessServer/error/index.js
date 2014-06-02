@@ -21,6 +21,7 @@ HttpError.prototype.name = 'HttpError';
 // Эксопорт
 exports.HttpError = HttpError;
 
+
 // Создание собственного объекта ошибок
 function AppError(status, message)
 {
@@ -35,4 +36,4 @@ util.inherits(AppError, Error);
 
 AppError.prototype.name = 'AppError';
 
-exports.HttpError = AppError;
+exports.AppError = AppError;

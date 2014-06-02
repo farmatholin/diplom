@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Тетсирование Скорости обработки</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+</head>
+<script>
+
+    var i;
+    var rCount = 1000;
+    var countGet = rCount;
+    var time = 0;
+    var timeStart;
+    var timeEnd
+    function apiTest(){
+
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8082/data/scores",
+            beforeSend: function (request)
+            {
+                timeStart = new Date().getMilliseconds();
+                request.setRequestHeader("api-key", '53372fc492730ac02e30b6b0');
+            },
+            dataType: "json",
+            success: function(data, status, httpRequest){
+                countGet--;
+                timeEnd = new Date().getMilliseconds();
+                time += timeEnd - timeStart;
+
+                if(countGet == 0){
+                    console.log(time / rCount);
+                    clearInterval(i);
+                    console.log("end " + rCount);
+                }
+            },
+            error: function (err){
+                console.log(err);
+
+            }
+        });
+
+
+    }
+    i = setInterval(apiTest, 1)
+   // setInterval(sec, 1000) // использовать функцию
+
+</script>
+<body>
+<div id="res1"></div>
+<div id="res2"></div>
+</body>
+</html>

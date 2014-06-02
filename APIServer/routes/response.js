@@ -5,10 +5,6 @@ var config = require('../config');
 var Url = require('url');
 var exec = require("child_process").exec;
 
-/**
- * @autor Люблю САШКУ Борисову!!!!!!
- */
-
 exports.get = function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     // Получение всех параметров из хедера

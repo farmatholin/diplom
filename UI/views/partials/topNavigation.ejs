@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default" role="navigation">
+    <ul class="nav navbar-nav">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/doc">Документация</a></li>
+        <li><a href="/about">Контакты</a></li>
+        <li><a href="/downloads">Загрузки</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <% if (user) { %>
+        <li><a href="/dashboard">Панель Управления</a></li>
+        <li><a href="" onclick="$('<form method=POST action=/dashboard/logout>').appendTo('body').submit();return false">Выйти</a></form></li>
+        <% } else { %>
+        <li><a href="/dashboard/login">Войти</a></li>
+        <li><a href="/dashboard/registration">Регистрация</a></li>
+        <% } %>
+    </ul>
+</nav>

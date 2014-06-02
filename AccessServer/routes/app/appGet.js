@@ -1,10 +1,27 @@
 var Url = require('url');
 var config = require('../../config');
 var request = require('request');
-var App = require('../../models/App').App;
+var App = require('../../models/app').App;
 var HttpError = require('../../error').HttpError;
 
-// Создание Приложения
-exports.post = function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-}
+// Получение данных о приложении
+exports.get = function (req, res, next) {
+    App.getAppData(req.params.appId, function (err, app) {
+        if (err) return next(err);
+
+        // отправляем данные
+        res.send(app);
+
+    });
+};
+
+// получение всех приложений юзера
+exports.getUser = function (req, res, next) {
+    App.AppGetUser(req.params.userId, function (err, app) {
+        if (err) return next(err);
+
+        // отпровляем данные
+        res.send(app);
+
+    });
+};

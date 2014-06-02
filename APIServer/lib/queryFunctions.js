@@ -24,7 +24,7 @@ exports.queryInsertCreator = function(bodyObject){
 }
 
 exports.queryPutCreator = function(object){
-    object = JSON.stringify(object).replace(regInt,'$1');
+    object = JSON.stringify(object).replace(regInt,':$1');
     object = JSON.parse(object);
     object.dateUpdated = new Date().getTime();
 
