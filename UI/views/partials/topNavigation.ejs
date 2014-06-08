@@ -1,17 +1,30 @@
-<nav class="navbar navbar-default" role="navigation">
-    <ul class="nav navbar-nav">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/doc">Документация</a></li>
-        <li><a href="/about">Контакты</a></li>
-        <li><a href="/downloads">Загрузки</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-        <% if (user) { %>
-        <li><a href="/dashboard">Панель Управления</a></li>
-        <li><a href="" onclick="$('<form method=POST action=/dashboard/logout>').appendTo('body').submit();return false">Выйти</a></form></li>
-        <% } else { %>
-        <li><a href="/dashboard/login">Войти</a></li>
-        <li><a href="/dashboard/registration">Регистрация</a></li>
-        <% } %>
-    </ul>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MUStorage</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/doc">Документация</a></li>
+            <li><a href="/about">Контакты</a></li>
+            <li><a href="/downloads">Загрузки</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <% if (user) { %>
+            <li><a href="/dashboard">Панель Управления</a></li>
+            <li><a href="" onclick="$('<form method=POST action=/dashboard/logout>').appendTo('body').submit();return false">Выйти</a></form></li>
+            <% } else { %>
+            <li><a href="/dashboard/login">Войти</a></li>
+            <li><a href="/dashboard/registration">Регистрация</a></li>
+            <% } %>
+        </ul>
+    </div><!--/.nav-collapse -->
+</div>
 </nav>

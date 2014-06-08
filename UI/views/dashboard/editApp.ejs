@@ -1,7 +1,13 @@
 <% layout('../layout/dashboard') -%>
-<% block('title', 'Редактировать Приложение'); -%>
+<% block('title', 'Редактировать Приложение'+ app.name); -%>
 
-<div>
-    <h2>API-KEY</h2> <%= app._id %>
-    <h2>Имя</h2> <%= app.name %>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Приложение <%= app.name %></h2>
+        <p class="lead"> <abbr title="Специальный ключ для доступа к данным приложения">API-KEY</abbr> <%= app._id %></p>
+    </div>
+
+    <div class="col-md-8">
+
+    </div>
 </div>

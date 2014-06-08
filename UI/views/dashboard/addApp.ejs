@@ -1,19 +1,28 @@
 <% layout('../layout/dashboard') -%>
 <% block('title', 'Добавить приложение'); -%>
-<form class="form-horizontal cApp-form" name="cApp-form">
-<div class="form-group">
-    <label for="input-name" class="col-lg-2 control-label">Имя</label>
-    <div class="col-lg-10">
-        <input name="name" type="text" class="form-control" id="input-username" placeholder="Имя">
+<div class="row">
+    <div class="col-md-4">
+        <form class="form-horizontal cApp-form" name="cApp-form">
+            <div class="form-group">
+                <label for="input-name" class="col-lg-2 control-label">Имя</label>
+                <div class="col-lg-10">
+                    <input name="name" type="text" class="form-control" id="input-username" placeholder="Имя">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Создать</button>
+                    <span class="help-block error"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <h2>Добавьте приложение в систему</h2>
+        <p>Для того чтобы добавить приложение, достаточно ввести имя</p>
     </div>
 </div>
-<div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-        <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Создать</button>
-        <span class="help-block error"></span>
-    </div>
-</div>
-</form>
+
 <script>
     $(document.forms['cApp-form']).on('submit', function () {
         var form = $(this);

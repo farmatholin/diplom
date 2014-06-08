@@ -1,21 +1,33 @@
 <% layout('../layout/dashboard') -%>
 <% block('title', 'Панель управления'); -%>
+<% stylesheet('/stylesheets/style.css') -%>
 
 <p class="lead">Приложение</p>
 
-<a href="/dashboard/app/add">Добавить приложение</a>
+<a href="/dashboard/app/add"><span class="glyphicon glyphicon-plus-sign"></span>Добавить приложение</a>
+<hr>
 <% if (apps.length > 0){ %>
     <% for(var i = 0; i < apps.length; ++i){%>
-    <div>
-        <div>
-            <a href="/dashboard/app/delete/<%=apps[i]._id %>">удалить</a>
-            <a href="/dashboard/app/edit/<%=apps[i]._id %>"><%=apps[i].name %></a>
-            <a href="/dashboard/app/service/custom/<%=apps[i]._id %>">Кастомный объект</a>
+<div class="row">
+    <div class="col-md-4">
+        <a href="/dashboard/app/delete/<%=apps[i]._id %>"><span class="glyphicon glyphicon-remove-sign"></span></a>
+        <a href="/dashboard/app/edit/<%=apps[i]._id %>" class="appref"><%=apps[i].name %></a>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <a href="/dashboard/app/service/custom/<%=apps[i]._id %>">
+                    <span class="glyphicon glyphicon-phone"></span>
+                    <p class="text-center">Объекты</p>
+                </a>
+            </div>
         </div>
     </div>
+</div>
+<hr>
     <% }%>
 <% } else { %>
     <div>
-        Ничего больше нету
+        У вас пока нету приложений
     </div>
 <% } %>

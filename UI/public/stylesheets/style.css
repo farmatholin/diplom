@@ -1,8 +1,19 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.glyphicon {
+    font-size: 15px;
+    padding-right: 10px;
+    color: #A00000;
+}
+.row a {
+    color: #000000;
+}
+.row .col-md-8 span{
+    font-size: 40px;
+    color: #4fbc31;
 }
 
-a {
-  color: #00B7FF;
+.row {
+    margin: 10px 10px 10px 10px;
+}
+.appref {
+    font-size: 18px;
 }
