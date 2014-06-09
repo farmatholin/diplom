@@ -56,3 +56,25 @@ exports.delete = function(req, res, next){
 
     res.send({});
 };
+exports.post = function(req, res, next){
+    var apiKey = req.params.id;
+    var name = req.params.name;
+
+    var accessServer = config.get('accessServer');
+    request(
+        { method: 'POST',
+            url: accessServer + '/data/' + name,
+            headers: {
+                "Api-Key": apiKey
+            },
+            form: req.body
+        },
+        function (error, response, body) {
+            if (response.statusCode == 200) {
+                res.send(body);
+            } else {
+                return next(error);
+            }
+        }
+    );
+};

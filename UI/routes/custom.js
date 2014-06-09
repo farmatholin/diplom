@@ -44,10 +44,22 @@ exports.getColApp = function(req, res, next){
                 var resBody = JSON.parse(body);
                 //res.send(resBody);
 
+                var otherCol = [];
+                otherCol[0] = null;
+
+                var len = req.session.colls[req.params.id].length;
+
+                for(var i = 0; i < len; ++i){
+                    if(req.session.colls[req.params.id][i]._id == req.params.classId){
+                        otherCol[0] = req.session.colls[req.params.id][i];
+                    } else {
+                        otherCol.push(req.session.colls[req.params.id][i]);
+                    }
+                }
                 res.render('dashboard/custom', {
                     id:req.params.id,
                     appBody: resBody,
-                    otherCol:req.session[req.params.id]
+                    otherCol:otherCol
                 });
             } else {
                 return next(error);
@@ -76,16 +88,59 @@ exports.addColApp = function(req, res, next){
 
 exports.deleteColApp = function(req, res, next){
 
+    var accessServer = config.get('accessServer');
+    request(
+        {
+            method: 'DELETE',
+            url: accessServer + '/app/schemas/'+ req.params.id +'/' + req.params.classId
+        },
+        function (error, response, body) {
+            if (response.statusCode == 200) {
+                res.send({});
+            } else {
+                return next(error);
+            }
+        }
+    );
 };
 
 exports.addFieldCApp = function(req, res, next){
 
-};
-
-exports.putFieldCApp = function(req, res, next){
-
+    var accessServer = config.get('accessServer');
+    request(
+        {
+            method: 'POST',
+            url: accessServer + '/app/schemas/field/'+ req.params.id +'/' + req.params.classId,
+            form: req.body
+        },
+        function (error, response, body) {
+            if (response.statusCode == 200) {
+                res.send({});
+                //больше кодов
+            } else {
+                return next(error);
+            }
+        }
+    );
 };
 
 exports.deleteFieldCApp = function(req, res, next){
-
+    var accessServer = config.get('accessServer');
+    request(
+        {
+            method: 'DELETE',
+            url: accessServer + '/app/schemas/field/'
+                + req.params.id +'/'
+                + req.params.classId + '/'
+                + req.params.fieldName
+        },
+        function (error, response, body) {
+            if (response.statusCode == 200) {
+                res.send({});
+                //больше кодов
+            } else {
+                return next(error);
+            }
+        }
+    );
 };

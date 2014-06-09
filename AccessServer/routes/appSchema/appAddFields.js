@@ -6,7 +6,7 @@ var HttpError = require('../../error').HttpError;
 
 // Создание Приложения
 exports.post = function (req, res, next) {
-    App.AddFields(req.params.appId, req.params.schemaName, req.body, function(err, schema){
+    App.AddFields(req.params.appId, req.params.schemaId, req.body, function(err, schema){
         if(err) return next(err);
 
         res.send(schema);

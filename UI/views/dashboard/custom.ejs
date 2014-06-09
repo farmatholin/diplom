@@ -9,31 +9,326 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="jumbotron">
-            <form class="form-horizontal cApp-form" name="cApp-form">
-                <div class="form-group">
-                    <label for="input-classname" class="col-lg-2 control-label">Имя</label>
-                    <div class="col-lg-10">
-                        <input name="name" type="text" class="form-control" id="input-classname" placeholder="Имя коллекции">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="jumbotron text-center">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal">Добавить класс</button>
+            <!-- Modal add -->
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="addModalLabel">Добавить класс</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal cApp-form" name="cApp-form" id="cApp-form">
+                                <div class="form-group">
+                                    <label for="input-classname" class="col-lg-2 control-label">Имя</label>
+                                    <div class="col-lg-10">
+                                        <input name="name" type="text" class="form-control" id="input-classname" placeholder="Имя коллекции">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+
+                                        <span class="help-block error"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" data-loading-text="Отправляю..." form="cApp-form">Создать</button>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                        <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Создать</button>
-                        <span class="help-block error"></span>
+            </div>
+            <!-- end Modal add -->
+            <script>
+                $(document.forms['cApp-form']).on('submit', function () {
+                    var form = $(this);
+
+                    $('.error', form).html('');
+                    $(":submit", form).button("loading");
+
+                    $.ajax({
+                        url: '/dashboard/app/service/custom/<%=id%>',
+                        method: "POST",
+                        data: form.serialize(),
+                        complete: function () {
+                            $(":submit", form).button("reset");
+                        },
+                        statusCode: {
+                            200: function (body) {
+                                form.html("Добавлено").addClass('alert-success');
+                                window.location = '/dashboard/app/service/custom/<%=id%>';
+                            },
+                            403: function (jqXHR) {
+                                var error = JSON.parse(jqXHR.responseText);
+                                $('.error', form).html(error.message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+            </script>
+            <%if(!appBody){%>
+                <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Удалить класс</button>
+                <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Добавить поле</button>
+                <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Удалить поле</button>
+                <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Добаить данные</button>
+            <%} else {%>
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#deleteModal">Удалить класс</button>
+            <!-- Modal delete -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="deleteModalLabel">Удалить класс</h4>
+                        </div>
+                        <div class="modal-body">
+                            Вы уверены
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                            <button id='deleteClass' type="button" class="btn btn-primary" data-loading-text="Отправляю..." form="cApp-form">Удалить</button>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
+            <script>
+                $('#deleteClass').on('click', function () {
+
+                    $.ajax({
+                        url: '/dashboard/app/service/custom/<%=id%>/<%=appBody._id%>',
+                        method: "DELETE",
+                        statusCode: {
+                            200: function (body) {
+                                window.location = '/dashboard/app/service/custom/<%=id%>';
+                            },
+                            403: function (jqXHR) {
+                                var error = JSON.parse(jqXHR.responseText);
+                            }
+                        }
+                    });
+                    return false;
+                });
+            </script>
+            <!-- end Modal delete -->
+
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addFieldModal">Добавить поле</button>
+            <!-- Modal add field -->
+            <div class="modal fade" id="addFieldModal" tabindex="-1" role="dialog" aria-labelledby="addFieldLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="addModalLabel">Добавить поле</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal addField-form" name="addField-form" id="addField-form">
+                                <div class="form-group">
+                                    <label for="input-fieldName" class="col-lg-2 control-label">Имя</label>
+                                    <div class="col-lg-10">
+                                        <input name="fieldName" type="text" class="form-control" id="input-fieldName" placeholder="Имя поля">
+                                    </div>
+                                    <label for="input-fieldType" class="col-lg-2 control-label">Тип</label>
+                                    <div class="col-lg-10">
+                                        <select name="fieldType" class="form-control" id="input-fieldType" placeholder="Имя поля">
+                                            <option value="integer">Integer</option>
+                                            <option value="string">String</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <span class="help-block error"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" data-loading-text="Отправляю..." form="addField-form">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end Modal addfield -->
+            <script>
+                $(document.forms['addField-form']).on('submit', function () {
+                    var form = $(this);
+
+                    $('.error', form).html('');
+                    $(":submit", form).button("loading");
+
+                    console.log(form.serialize());
+
+                    $.ajax({
+                        url: '/dashboard/app/service/custom/field/<%=id%>/<%=appBody._id%>',
+                        method: "POST",
+                        data: form.serialize(),
+                        complete: function () {
+                            $(":submit", form).button("reset");
+                        },
+                        statusCode: {
+                            200: function (body) {
+                                form.html("Добавлено").addClass('alert-success');
+                                window.location = '/dashboard/app/service/custom/<%=id%>/<%=appBody._id%>';
+                            },
+                            403: function (jqXHR) {
+                                var error = JSON.parse(jqXHR.responseText);
+                                $('.error', form).html(error.message);
+                            }
+                        }
+                    });
+
+                    return false;
+                });
+            </script>
+
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#deleteFieldModal">Удалить поле</button>
+            <!-- Modal add field -->
+
+            <div class="modal fade" id="deleteFieldModal" tabindex="-1" role="dialog" aria-labelledby="deleteFieldLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="deleteModalLabel">Удалить поле</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal deleteField-form" name="deleteField-form" id="deleteField-form">
+                                <div class="form-group">
+                                    <label for="input-deleteFieldName" class="col-lg-2 control-label">Тип</label>
+                                    <div class="col-lg-10">
+                                        <select name="fieldToDel" class="form-control" id="input-deleteFieldName">
+                                            <% for(var i=0; i<appBody.fields.length; i++){%>
+                                                <%if(appBody.fields[i]['fieldName'] == '_id' ||
+                                                        appBody.fields[i]['fieldName'] == 'dateCreate' ||
+                                                        appBody.fields[i]['fieldName'] == 'dateUpdated'){%>
+                                                <%} else {%>
+                                                    <option value="<%= appBody.fields[i]['fieldName']%>">
+                                                        <%= appBody.fields[i]['fieldName']%>
+                                                    </option>
+                                                <%}%>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <span class="help-block error"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" data-loading-text="Отправляю..." form="deleteField-form">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end Modal deletefield -->
+            <script>
+                $(document.forms['deleteField-form']).on('submit', function () {
+                    var form = $(this);
+
+                    $('.error', form).html('');
+                    $(":submit", form).button("loading");
+
+
+                    $.ajax({
+                        url: '/dashboard/app/service/custom/field/<%=id%>/<%=appBody._id%>/'+$("select[name='fieldToDel']").val(),
+                        method: "DELETE",
+                        complete: function () {
+                            $(":submit", form).button("reset");
+                        },
+                        statusCode: {
+                            200: function (body) {
+                                form.html("Удалено").addClass('alert-success');
+                                window.location = '/dashboard/app/service/custom/<%=id%>/<%=appBody._id%>';
+                            },
+                            403: function (jqXHR) {
+                                var error = JSON.parse(jqXHR.responseText);
+                                $('.error', form).html(error.message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+            </script>
+
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addDataModal">Добаить данные</button>
+            <!-- Modal add data -->
+            <div class="modal fade" id="addDataModal" tabindex="-1" role="dialog" aria-labelledby="addDataLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="addDataLabel">Добавить данные</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal addData-form" name="addData-form" id="addData-form">
+                                <div class="form-group">
+                                    <% for(var i=0; i<appBody.fields.length; i++){%>
+                                        <%if(appBody.fields[i]['fieldName'] == '_id' ||
+                                                appBody.fields[i]['fieldName'] == 'dateCreate' ||
+                                                appBody.fields[i]['fieldName'] == 'dateUpdated'){%>
+                                        <%} else {%>
+                                            <label for="input-field<%= appBody.fields[i]['fieldName']%>" class="col-lg-2 control-label">
+                                                <%= appBody.fields[i]['fieldName']%>
+                                            </label>
+                                            <div class="col-lg-10">
+                                                <input name="<%= appBody.fields[i]['fieldName']%>"
+                                                       value=" "
+                                                       type="text"
+                                                       class="form-control"
+                                                       id="input-field<%= appBody.fields[i]['fieldName']%>"
+                                                       placeholder="<%= appBody.fields[i]['fieldName']%>"
+                                                        >
+                                            </div>
+                                        <%}%>
+                                    <%}%>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <span class="help-block error"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" data-loading-text="Отправляю..." form="addData-form">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end Modal addData -->
+            <%}%>
+
+            <!--- --->
         </div>
     </div>
 </div>
+<% if(otherCol){%>
+
+<select class="form-control" id="colls">
+    <%for(var i=0; i < otherCol.length; ++i){%>
+    <option value="<%= otherCol[i]._id%>"><%= otherCol[i].name%></option>
+    <%}%>
+</select>
+<script>
+    $('#colls').on('change', function() {
+        window.location = '/dashboard/app/service/custom/<%=id%>/'+this.value;
+    });
+</script>
+<%} %>
 <hr>
 <% if(appBody){ %>
-
-<!--- ТУТ КОРОЧЕ МОДЛЬНЫЕ ОКОШКИ---->
-
 <table id="example" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
@@ -60,16 +355,45 @@
                 }
             }
         });
+        <%if(appBody){%>
+            $(document.forms['addData-form']).on('submit', function () {
+                var form = $(this);
 
-        $('#addRow').on('click', function(){
-            table.row.add([
-            ]).draw();
-        });
+                $('.error', form).html('');
+                $(":submit", form).button("loading");
+
+                console.log(form.serialize());
+                $.ajax({
+                    url: '/dashboard/app/service/ajax/custom/<%=id%>/<%=appBody.name%>',
+                    method: "POST",
+                    data: form.serialize(),
+                    complete: function () {
+                        $(":submit", form).button("reset");
+                    },
+                    statusCode: {
+                        200: function (body) {
+                             var data = JSON.parse(body);
+                                 table.row.add([
+                                    <% for(var i=0; i<appBody.fields.length; i++){%>
+                                        data['<%= appBody.fields[i]['fieldName']%>'],
+                                    <%}%>
+                                 ]).draw();
+                            $('#addDataModal').modal('hide')
+                        },
+                        403: function (jqXHR) {
+                            var error = JSON.parse(jqXHR.responseText);
+                            $('.error', form).html(error.message);
+                        }
+                    }
+                });
+                return false;
+
+            });
+        <%}%>
 
         $('#example tbody').on( 'click', 'tr', function () {
             $(this).toggleClass('selected');
             var test = table.rows('.selected').data();
-            console.log(test[0][2]);
 
         } );
 
@@ -122,31 +446,4 @@
     <p class="lead">Здесь немного пусто, как насчёт создать схему данных</p>
 </div>
 <% } %>
-<script>
-    $(document.forms['cApp-form']).on('submit', function () {
-        var form = $(this);
 
-        $('.error', form).html('');
-        $(":submit", form).button("loading");
-
-        $.ajax({
-            url: '/dashboard/app/service/custom/<%=id%>',
-            method: "POST",
-            data: form.serialize(),
-            complete: function () {
-                $(":submit", form).button("reset");
-            },
-            statusCode: {
-                200: function (body) {
-                    form.html("Добавлено").addClass('alert-success');
-                    window.location = '/dashboard/app/service/custom/<%=id%>';
-                },
-                403: function (jqXHR) {
-                    var error = JSON.parse(jqXHR.responseText);
-                    $('.error', form).html(error.message);
-                }
-            }
-        });
-        return false;
-    });
-</script>

@@ -188,6 +188,33 @@ schema.statics.AddSchema = function(appId, postData, callback){
     ], callback);
 };
 
+schema.statics.DeleteSchema = function(appId, schemaId, callback){
+
+    var App = this;
+
+    async.waterfall([
+        function (callback) {
+            App.findOne({_id: appId }, callback);
+        },
+        function (app, callback) {
+            if (app) {
+                var schemaName = "";
+                for(var i = 0; i < app.schemas.length; ++i){
+                    if(app.schemas[i]._id == schemaId){
+                        schemaName = app.schemas[i].name;
+                        app.schemas.splice(i,1);
+                    }
+                }
+                app.save(function(err){
+                    if (err) return callback(err);
+                    callback(null, app, schemaName);
+                });
+            } else {
+                callback(new AppError(404, "No application"));
+            }
+        }
+    ], callback);
+};
 /// получение схемы данных
 schema.statics.GetSchema = function(schemaId, callback){
 
@@ -234,11 +261,11 @@ schema.statics.GetSchemas = function(id, callback){
     ], callback);
 };
 
-schema.statics.AddFields = function(appId, schemaName, postData, callback){
+schema.statics.AddFields = function(appId, schemaId, postData, callback){
     var App = this;
     async.waterfall([
         function (callback) {
-            App.findOne({_id: appId, schemas:{$elemMatch:{name:schemaName}}}, callback);
+            App.findOne({_id: appId, schemas:{$elemMatch:{_id:schemaId}}}, callback);
         },
         function (app, callback) {
             if(!app) return callback(new AppError(404, 'application not found'));
@@ -246,8 +273,40 @@ schema.statics.AddFields = function(appId, schemaName, postData, callback){
             /// GПроверка на дубликат
             // TODO: Проверка на дубликат
             for(var i = 0; i < app.schemas.length; ++i){
-                if(app.schemas[i].name != schemaName){
+                if(app.schemas[i]._id == schemaId){
                     app.schemas[i].fields.push(postData);
+                    break;
+                }
+            }
+            app.save(function(err){
+                if (err){
+                    if(err.name = 'ValidationError') return callback(new AppError(406,'required fields missing'));
+                    return callback(err);
+                }
+                callback(null, app);
+            });
+
+        }
+    ], callback);
+};
+
+schema.statics.DeleteFields = function(appId, schemaId, fieldName, callback){
+    var App = this;
+    async.waterfall([
+        function (callback) {
+            App.findOne({_id: appId, schemas:{$elemMatch:{_id:schemaId}}}, callback);
+        },
+        function (app, callback) {
+            if(!app) return callback(new AppError(404, 'application not found'));
+
+            for(var i = 0; i < app.schemas.length; ++i){
+                if(app.schemas[i]._id == schemaId){
+                    for(var j = 0; j < app.schemas[i].fields.length; ++j){
+                        if(app.schemas[i].fields[j].fieldName == fieldName){
+                            app.schemas[i].fields.splice(j,1);
+                            break;
+                        }
+                    }
                     break;
                 }
             }

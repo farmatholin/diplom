@@ -48,17 +48,17 @@ module.exports = function (app) {
     app.post('/dashboard/app/service/custom/:id', checkAuth, require('./custom').addColApp);
 
     // Удалить класс
-    app.delete('/dashboard/app/service/custom/:id', checkAuth, require('./custom').deleteColApp);
+    app.delete('/dashboard/app/service/custom/:id/:classId', checkAuth, require('./custom').deleteColApp);
 
     ///Работа с полями
     app.post('/dashboard/app/service/custom/field/:id/:classId', checkAuth, require('./custom').addFieldCApp);
-    app.put('/dashboard/app/service/custom/field/:id/:classId', checkAuth, require('./custom').putFieldCApp);
-    app.delete('/dashboard/app/service/custom/field/:id/:classId', checkAuth, require('./custom').deleteFieldCApp);
+    app.delete('/dashboard/app/service/custom/field/:id/:classId/:fieldName', checkAuth, require('./custom').deleteFieldCApp);
 
 
     ///// Для работы Аjax
     app.get('/dashboard/app/service/ajax/custom/:id/:name', require('./ajax').get);
     app.delete('/dashboard/app/service/ajax/custom/:id/:name', require('./ajax').delete);
+    app.post('/dashboard/app/service/ajax/custom/:id/:name', require('./ajax').post);
 
     ///// Пока всё.
 }

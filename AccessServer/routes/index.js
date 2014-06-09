@@ -37,7 +37,11 @@ module.exports = function(app) {
     ///// appsSchemas functions
     app.get('/app/schemas/:schemaId', require('./appSchema/appGetSchema').get);
     app.get('/app/schemas/data/:id', require('./appSchema/appGetSchema').getSchemas);
+    app.delete('/app/schemas/:appId/:schemaId', require('./appSchema/appDeleteSchema').delete);
 
     app.post('/app/schemas/:appId', require('./appSchema/appAddSchema').post);
-    app.post('/app/schemas/:appId/:schemaName', require('./appSchema/appAddFields').post);
+
+    //Fields functions
+    app.post('/app/schemas/field/:appId/:schemaId', require('./appSchema/appAddFields').post);
+    app.delete('/app/schemas/field/:appId/:schemaId/:fieldName', require('./appSchema/appDeleteField').delete);
 };

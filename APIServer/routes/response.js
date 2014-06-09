@@ -133,3 +133,22 @@ exports.delete = function (req, res, next) {
         res.end()
     })
 };
+
+exports.dropCollection = function (req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+
+    var apiKey = req.header("api-key");
+    var apiApp = req.header("api-app");
+    var apiUser = req.header("api-user");
+
+    var dbName =  apiApp + apiUser + apiKey.substring(apiKey.length-5,apiKey.length)
+    var db = mongol.db(dbName);
+
+    db.auth("user","servapiuser");
+
+    var collection = db.collection(req.params.className);
+
+    collection.drop(function(err){
+        res.end()
+    });
+};

@@ -15,4 +15,8 @@ module.exports = function (app) {
     app.post('/db/:dbName', require('./db').post);
     app.delete('/db/:dbName', require('./db').delete);
 
+    /* collection drop */
+
+    app.delete('/collection/:className', require('./response').dropCollection);
+
 }
