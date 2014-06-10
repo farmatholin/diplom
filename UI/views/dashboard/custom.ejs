@@ -375,7 +375,7 @@
                              var data = JSON.parse(body);
                                  table.row.add([
                                     <% for(var i=0; i<appBody.fields.length; i++){%>
-                                        data['<%= appBody.fields[i]['fieldName']%>'],
+                                        data['<%= appBody.fields[i]['fieldName']%>']==undefined?" ":data['<%= appBody.fields[i]['fieldName']%>'],
                                     <%}%>
                                  ]).draw();
                             $('#addDataModal').modal('hide')
@@ -428,7 +428,7 @@
                     data.forEach(function(item){
                         table.row.add([
                             <% for(var i=0; i<appBody.fields.length; i++){%>
-                            item['<%= appBody.fields[i]['fieldName']%>'],
+                            item['<%= appBody.fields[i]['fieldName']%>']==undefined?" ":item['<%= appBody.fields[i]['fieldName']%>'],
                             <%}%>
                         ]).draw();
                     });
