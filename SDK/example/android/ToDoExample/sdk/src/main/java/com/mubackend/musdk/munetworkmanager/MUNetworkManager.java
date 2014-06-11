@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class MUNetworkManager {
     public static  String API_KEY = "";
-    public static final String BASE_URL = "http://10.0.2.2:8082/data/";
+    public static final String BASE_URL = "http://access-farmathapiserver.rhcloud.com/data/";
     private static AsyncHttpClient client = new AsyncHttpClient();
     public static void setAPI_KEY(String apiKey){
         API_KEY = apiKey;
@@ -210,7 +210,6 @@ public class MUNetworkManager {
                             + "&"
             );
         }
-
         client.get(getAbsoluteUrl(collectionName
                 + "?"
                 +stringBuilder.toString()
